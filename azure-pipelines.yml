@@ -16,14 +16,14 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-steps:
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
-    steps:
+    
 # ...
 # do this after other tasks such as building
 - task: DotNetCoreCLI@2
@@ -34,7 +34,7 @@ steps:
 - task: CmdLine@2
   inputs:
     script: 'dotnet publish --output $(Build.ArtifactStagingDirectory)'
-    steps:
+    
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -48,7 +48,7 @@ steps:
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'myWebsiteName'
-    steps:
+    
 # ...
 # do this near the end of your pipeline in most cases
 - script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
